@@ -21,6 +21,12 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class TokenResponse(BaseModel):
+    message: str = "Login Successful"
+    name: str
+    username: str
+    access_token: str
+    token_type: str
 
 
 
