@@ -25,7 +25,7 @@ class Expense(Base):
     amount = Column(Numeric(10, 2), nullable = False, default=0)
     category = Column(String(70))
     details = Column(String(300))
-    expense_date = Column(DateTime, default=datetime.utcnow)
+    expense_date = Column(DateTime, default=datetime.utcnow())
 
     user_id = Column(String, ForeignKey("users.id"))
     owner = relationship("User", back_populates="expenses")

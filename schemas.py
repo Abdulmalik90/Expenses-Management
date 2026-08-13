@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 # ========= User Schemas =========
 class UserSignUp(BaseModel):
