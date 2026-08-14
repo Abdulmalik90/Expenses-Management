@@ -175,13 +175,15 @@ scheduler.add_job(add_recurring_expenses_daily, 'interval', minutes=1)
 
 @router.on_event("startup")
 def start_scheduler():
-    scheduler.start()
+    if not scheduler.running:
+        scheduler.start()
 
 @router.on_event("shutdown")
 def stop_scheduler():
-    scheduler.shutdown()
+    if scheduler.running:
+        scheduler.shutdown()
 
-@router.post("/recurring-expenses")
+@router.post("/recurring")
 def create_recurring_expense(expense_data: schemas.RecurringExpenseCreate, db: Session = Depends(get_db), current_userId: str = Depends(get_current_user)):
     user = db.query(models.User).filter(models.User.id == current_userId).first()
     if not user:
@@ -208,7 +210,7 @@ def create_recurring_expense(expense_data: schemas.RecurringExpenseCreate, db: S
     return new_expense
 
 # get Recurring Expenses =============================
-@router.get("/recurring-expenses")
+@router.get("/recurring")
 def get_recurring_expenses(db: Session = Depends(get_db), current_userId: str = Depends(get_current_user)):
 
     user = db.query(models.User).filter(models.User.id == current_userId).first()
@@ -224,7 +226,7 @@ def get_recurring_expenses(db: Session = Depends(get_db), current_userId: str = 
     return recurring_expenses
 
 # update Recurring Expenses =============================
-@router.put("/recurring-expenses/{recurring_expense_id}")
+@router.put("/recurring/{recurring_expense_id}")
 def update_recurring_expense(
         new_recurring_expense: schemas.RecurringExpenseUpdate,
         recurring_expense_id: int,
@@ -264,7 +266,7 @@ def update_recurring_expense(
     return recurring_expense
 
 # Delete Recurring expense =======================
-@router.delete("/recurring-expenses/{recurring_expense_id}")
+@router.delete("/recurring/{recurring_expense_id}")
 def delete_recurring_expense(
         recurring_expense_id: int,
         db: Session = Depends(get_db),
