@@ -16,7 +16,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     expenses = relationship("Expense", back_populates="owner")
-
+    recurring_expenses = relationship("RecurringExpense", back_populates="owner")
 
 class Expense(Base):
     __tablename__ = "expense"
@@ -30,4 +30,16 @@ class Expense(Base):
     user_id = Column(String, ForeignKey("users.id"))
     owner = relationship("User", back_populates="expenses")
 
+class RecurringExpense(Base):
+    __tablename__ = "recurring_expenses"
 
+    id = Column(Integer, primary_key=True, index=True)
+    amount = Column(Numeric(precision=10, scale=2))
+    category = Column(String(70))
+    details = Column(String(300))
+    user_id = Column(String, ForeignKey("users.id"))
+
+    day_of_month = Column(Integer, nullable=False)
+    remaining_months = Column(Integer)
+
+    owner = relationship("User", back_populates="recurring_expenses")

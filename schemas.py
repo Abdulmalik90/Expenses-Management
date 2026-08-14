@@ -42,3 +42,19 @@ class ExpenseUpdate(BaseModel):
     amount: float
     category: str
     details: str
+
+# ========= Recurring Expense Schemas =========
+class RecurringExpenseCreate(BaseModel):
+    amount: float
+    category: str
+    details: str
+    day_of_month: int
+    remaining_months: int
+
+class RecurringExpenseUpdate(BaseModel):
+    amount: float
+    category: str
+    details: str
+    day_of_month: int
+    remaining_months: int
+
