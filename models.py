@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, Integer, String, Numeric, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Numeric, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
@@ -14,6 +14,7 @@ class User(Base):
     email = Column(String(100), unique=True, index=True)
     hashed_password = Column(String(255))
     created_at = Column(DateTime, default=datetime.utcnow)
+    is_verified = Column(Boolean, default=False)
 
     expenses = relationship("Expense", back_populates="owner")
     recurring_expenses = relationship("RecurringExpense", back_populates="owner")

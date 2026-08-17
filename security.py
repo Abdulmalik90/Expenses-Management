@@ -45,3 +45,10 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
 
     except jwt.PyJWTError:
         raise credentials_exception
+
+
+def create_verification_token(email: str):
+    expire = datetime.utcnow() + timedelta(hours=24) # صالح لمدة يوم واحد
+    to_encode = {"sub": email, "exp": expire}
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
