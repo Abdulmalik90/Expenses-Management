@@ -30,7 +30,9 @@ const resources = {
             "Seamless Sync p": "Access your finances anywhere. Your data synchronizes perfectly across all your devices, giving you total control whether you\'re at home or on the go.",
             "Footer subtitle": "Financial Clarity for Modern Lifestyles.",
             "Rights Senctence": "All rights reserved.",
-            // سنضيف المزيد لاحقاً
+            
+            // Expenses Page
+            "Category": "Category (e.g. Salary, Rent)",
         }
     },
     ar: {
@@ -58,16 +60,60 @@ const resources = {
             "Terms of Service": "شروط الخدمة",
             "Contact Support": "الإتصال بالدعم",
             "Rights Senctence": "جميع الحقوق محفوظة.",
+            "Language": "اللغة",
+            "Account Settings": "إعدادات الحساب",
+            "Sign Out": "تسجيل الخروج",
+
+            // Auth Page
+            "Welcome to": "أهلا بك في",
+            "Financial clarity starts here.": "الوضوح المالي يبدأ من هنا.",
+            "Login": "تسجيل الدخول",
+            "Sign up": "إنشاء حساب",
+            "Username or Email": "اسم المستخدم أو البريد الإلكتروني",
+            "Password": "كلمة المرور",
+            "Back Home": "العودة الى الرئيسية",
+            "Name": "الإسم",
+            "Username": "اسم المستخدم",
+            "Email": "البريد الإلكتروني",
+            "Sign Up": "إنشاء الحساب",
+            "We sent you an activation on your email, please click it to active your account": "أرسلنا لك رابط تفعيل على إيميلك، الرجاء تفعيل حسابك بالدخول على الرابط",
             // Expenses Page
             "Salary": "الراتب",
             "Rent": "الإيجار",
             "Food": "الطعام",
             "Groceries": "سلع بقالة",
-            "Utilities": "الطلعات",
+            "Utilities": "فواتير الخدمات",
             "Internet": "الإنترنت",
             "Transport": "المواصلات",
             "Freelance": "العمل الحر",
-            "Commerce": "تجارة"
+            "Commerce": "تجارة",
+            "Outing": "الطلعات",
+            "Amount": "المبلغ",
+            "Category": "الفئة (الراتب، سلع البقالة، إلخ..)",
+            "Search expenses...": "البحث عن مصروف...",
+            "Recurring": "المصاريف المتكررة",
+            "Expense": "مصروف",
+            "Newest": "الأحدث",
+            "Highest Amount": "المبلغ الأعلى",
+            "Lowest Amount": "المبلغ الأقل",
+            "Details": "التفاصيل",
+            "Time": "التاريخ",
+            "Select a category...": "اختر فئة...",
+            "Other (Please specify)": "أخرى (الرجاء التحديد)",
+            "Custom Category Name": "إسم فئة مخصصة",
+            "Amount ($)": "المبلغ ($)",
+            "Cancel": "إلغاء",
+            "Add Expense": "إضافة مصروف",
+            "Save Changes": "حفظ التعديلات",
+            "Are you sure you want to delete this expense?": "هل أنت متأكد من حذف هذا المصروف؟",
+            // Statistics Page
+            "Overview of your financial activity": "نظرة عامة على نشاطك المالي",
+            "All": "الكل",
+            "Income": "المدخول",
+            "Outcomes": "المصروف",
+            "Recent": "مؤخرًا",
+            "Categories": "الفئة",
+            "Recent Transactions": "المعاملات الأخيرة"
         }
     }
 };

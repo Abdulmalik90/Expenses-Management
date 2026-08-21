@@ -27,14 +27,14 @@ const ExpenseModal = ({ isOpen, onClose, onSave, initialData }) => {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <input 
                         type="number" 
-                        placeholder="Amount" 
+                        placeholder={t("Amount")} 
                         className="p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         value={formData.amount} 
                         onChange={(e) => setFormData({...formData, amount: e.target.value})} 
                     />
                     <input 
                         type="text" 
-                        placeholder="Category (e.g. Salary, Rent)" 
+                        placeholder={t("Category (e.g. Salary, Rent)")} 
                         className="p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         value={formData.category} 
                         onChange={(e) => setFormData({...formData, category: e.target.value})} 

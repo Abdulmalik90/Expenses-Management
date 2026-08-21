@@ -24,7 +24,7 @@ const Dashboard = () => {
     
 
     // قائمة التصنيفات الافتراضية
-    const DEFAULT_CATEGORIES = ['Salary', 'Groceries', 'Utilities', 'Internet', 'Food', 'Rent', 'Transport', 'Freelance', 'Commerce'];
+    const DEFAULT_CATEGORIES = ['Salary', 'Groceries', 'Utilities', 'Internet', 'Food', 'Rent', 'Transport', 'Freelance', 'Commerce', "Outing"];
 
     // حالات جديدة لإدارة حقل التصنيف
     const [selectedCategory, setSelectedCategory] = useState('');

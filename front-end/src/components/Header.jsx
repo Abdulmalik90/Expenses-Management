@@ -89,8 +89,8 @@ const Header = () => {
             {/* الحل السحري لمشكلة الـ RTL: ltr:right-0 rtl:left-0 */}
             {isProfileOpen && (
                 <div className="absolute top-12 ltr:right-0 rtl:left-0 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-50">
-                <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Account Settings</Link>
-                <button className="w-full text-start px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">Sign Out</button>
+                <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">{t("Account Settings")}</Link>
+                <button className="w-full text-start px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">{t("Sign Out")}</button>
                 </div>
             )}
             </div>
@@ -113,7 +113,7 @@ const Header = () => {
             
             {/* زر اللغة يظهر في القائمة في الجوال لأننا أخفيناه من الأعلى لتوفير المساحة */}
             <div className="flex items-center gap-4 mt-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                <span className="text-sm font-medium text-gray-500">Language:</span>
+                <span className="text-sm font-medium text-gray-500">{t("Language")}:</span>
                 <button onClick={() => { toggleLanguage('en'); setIsMobileMenuOpen(false); }} className={`text-sm font-bold ${i18n.language === 'en' ? 'text-blue-600' : 'text-gray-500'}`}>EN</button>
                 <button onClick={() => { toggleLanguage('ar'); setIsMobileMenuOpen(false); }} className={`text-sm font-bold ${i18n.language === 'ar' ? 'text-blue-600' : 'text-gray-500'}`}>AR</button>
             </div>
