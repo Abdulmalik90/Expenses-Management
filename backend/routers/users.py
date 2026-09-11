@@ -45,6 +45,8 @@ def user_signup(user_data: schemas.UserSignUp, background_tasks: BackgroundTasks
     if not validUsername:
         raise HTTPException(status_code=403, detail="Username must not has one of these signs: !, @, #, $, %, ^, &, *")
 
+
+
     # Check if the username is exist
     existing_user = db.query(models.User).filter(
         (models.User.email == user_data.email) | (models.User.username == user_data.username)
@@ -89,11 +91,12 @@ def user_email_login(form_data: OAuth2PasswordRequestForm = Depends(), db: Sessi
     if user is None:
         raise HTTPException(status_code=403, detail="Invalid Credentials")
 
-    if not verify_password(form_data.password, user.hashed_password):
+    elif not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(status_code=403, detail="Invalid Credentials")
 
-    if not user.is_verified:
+    elif not user.is_verified:
         raise HTTPException(status_code=403, detail="Please verify your email address first")
+
 
     # Access token function from the security.py file
     access_token = create_access_token(data={"sub": str(user.id), "name": user.name, "role": "Normal_user"})

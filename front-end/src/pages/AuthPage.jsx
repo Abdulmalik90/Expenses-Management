@@ -23,7 +23,34 @@ const AuthPage = () => {
 
             alert(t("We sent you an activation on your email, please click it to active your account"));
         } catch (error) {
+            alert(error.response?.data?.detail)
             console.error("Error: ", error.response?.data?.detail || error.message)
+        }
+    }
+
+    const handleLogin = async (userData) => {
+        try{
+            const formData = new URLSearchParams();
+            formData.append("username", userData.username);
+            formData.append("password", userData.password);
+
+
+            const response = await apiClient.post('/users/login', formData, {
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded"
+                }
+            });
+
+            const token = response.data.access_token;
+            localStorage.setItem('token', token);
+
+
+            alert(t("Login Successful!"));
+            console.log("تم تسجيل الدخول، التوكن الخاص بك:", token);
+        } catch (error) {
+            
+            alert(error.response?.data?.detail || "Login failed");
+            console.error("Error: ", error.response?.data?.detail || error.message);
         }
     }
     return (
@@ -141,10 +168,10 @@ const AuthPage = () => {
                 {/* زر الإرسال */}
                 <button
                 type="submit"
-                className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
+                className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg flex items-center justify-center cursor-pointer gap-2 transition-colors"
                 onClick={() => {
                     if(isLogin){
-
+                        handleLogin(inputs)
                     } else{
                         handleRegister(inputs)
                     }
