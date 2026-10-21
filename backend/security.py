@@ -4,6 +4,10 @@ import jwt
 from dotenv import load_dotenv
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
+from jose import JWTError # استدعاء معالج أخطاء التوكن
+from sqlalchemy.orm import Session # استدعاء نوع جلسة قاعدة البيانات
+from database import get_db # استدعاء دالة الاتصال بقاعدة البيانات
+import models # استدعاء الجداول
 
 load_dotenv()
 
@@ -23,28 +27,27 @@ def create_access_token(data: dict):
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+# في ملف security.py
+from fastapi import HTTPException, status, Depends
 
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Un Oauthrized to enter this page",
-        headers={"WWW-Authenticate": "Bearer"}
-    )
 
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    # 1. التفتيش في القائمة السوداء أولاً
+    is_blacklisted = db.query(models.BlacklistedToken).filter(models.BlacklistedToken.token == token).first()
+
+    if is_blacklisted:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="تم تسجيل الخروج مسبقاً، هذا التوكن لم يعد صالحاً"
+        )
+
+    # 2. إذا لم يكن في القائمة السوداء، نكمل عملية فك التشفير العادية
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        # إكمال استخراج المستخدم...
 
-        user_id: str = payload.get("sub")
-
-        if user_id is None:
-            raise credentials_exception
-
-        return user_id
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="The login session has been expired, please log in again")
-
-    except jwt.PyJWTError:
-        raise credentials_exception
+    except JWTError:
+        raise HTTPException(status_code=401, detail="توكن غير صالح")
 
 
 def create_verification_token(email: str):

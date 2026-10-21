@@ -44,3 +44,11 @@ class RecurringExpense(Base):
     remaining_months = Column(Integer)
 
     owner = relationship("User", back_populates="recurring_expenses")
+
+
+class BlacklistedToken(Base):
+    __tablename__ = "blacklisted_tokens"
+
+    id = Column(Integer, primary_key=True, index=True)
+    token = Column(String, unique=True, index=True)
+    blacklisted_on = Column(DateTime, default=datetime.utcnow)

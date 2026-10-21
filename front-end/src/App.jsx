@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage'; // سنقوم بإنشائه الآن
 import HomePage from './pages/HomePage';
 import Dashboard from './pages/Dashboard';
 import Statistics from './pages/Statistics';
+import ProtectedRoute from './pages/ProjtectedRoute';
 
 // مكون يمثل التخطيط الأساسي (Layout) للصفحات التي تحتوي على هيدر وفووتر
 const MainLayout = () => {
@@ -24,18 +25,33 @@ const MainLayout = () => {
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* مسار شاشة تسجيل الدخول (عادة لا نضع لها هيدر وفووتر، بل صفحة مستقلة) */}
-        <Route path="/auth" element={<AuthPage />} />
+      <div className="min-h-screen bg-gray-50 dark:bg-[#050A15] text-gray-900 dark:text-white transition-colors duration-300 font-sans">
+        <Header />
+        
+        <Routes>
+          {/* مسارات عامة (متاحة للجميع) */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/auth" element={<AuthPage />} />
 
-        {/* المسارات التي تحتوي على الهيدر والفووتر */}
-        <Route element={<MainLayout />}>
-          {/* سنقوم ببرمجة هذه الصفحات لاحقاً */}
-          <Route path="/" element={<HomePage/>} />
-          <Route path="/statistics" element={<Statistics/>} />
-          <Route path="/expenses" element={<Dashboard/>} />
-        </Route>
-      </Routes>
+          {/* مسارات محمية (تتطلب تسجيل دخول) */}
+          <Route 
+            path="/expenses" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/statistics" 
+            element={
+              <ProtectedRoute>
+                <Statistics />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </div>
     </Router>
   );
 }

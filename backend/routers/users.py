@@ -6,7 +6,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import schemas
 from database import get_db, SessionLocal
 from hashing import hash_password, verify_password
-from security import create_access_token, get_current_user, SECRET_KEY, ALGORITHM
+from security import create_access_token, get_current_user, SECRET_KEY, ALGORITHM, oauth2_scheme
 from email_utils import send_verification_email
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
@@ -132,7 +132,15 @@ async def resend_verification(
 
     return {"message": "A new verification email has been sent successfully"}
 
+# Logining Out
+@router.post("/logout")
+def logout_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    # حفظ التوكن في قاعدة البيانات لتعطيله
+    blacklisted_token = models.BlacklistedToken(token=token)
+    db.add(blacklisted_token)
+    db.commit()
 
+    return {"message": "Successfully signed out and Token deactivated"}
 
 # Clean up the verification link ==================================
 def claen_verification_dayly():

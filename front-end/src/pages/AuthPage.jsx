@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, AtSign, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import apiClient from '../api/client';
@@ -13,6 +13,7 @@ const AuthPage = () => {
         email: "",
         password: "",
     })
+    const navigate = useNavigate();
 
     const { t, i18n } = useTranslation();
 
@@ -43,7 +44,8 @@ const AuthPage = () => {
 
             const token = response.data.access_token;
             localStorage.setItem('token', token);
-
+            
+            navigate('/expenses'); // سينقلك فوراً لصفحة المصاريف ويحدث الهيدر!
 
             alert(t("Login Successful!"));
             console.log("تم تسجيل الدخول، التوكن الخاص بك:", token);
